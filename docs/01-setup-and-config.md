@@ -17,7 +17,7 @@ your-project/
     settings.local.json   # personal overrides (git-ignored)
     agents/               # subagent definitions
     skills/               # project skills
-    commands/             # custom slash commands
+    commands/             # slash commands (legacy; prefer skills/)
     rules/                # path-specific instruction files
     hooks/                # scripts that settings.json points at
   .mcp.json               # shared MCP servers (commit this)

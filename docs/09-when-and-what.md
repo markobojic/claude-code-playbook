@@ -3,14 +3,44 @@
 # When & What — Choosing the Right Tool
 
 Several features overlap, and the wrong choice usually still "works" — just more
-expensively or less reliably. Two questions cut through most decisions:
+expensively or less reliably.
 
-- **Always or sometimes?** Does this always apply (→ CLAUDE.md / rules) or only
-  sometimes (→ skill)?
-- **Judgment or guarantee?** Do you want Claude to decide (→ instructions,
-  skills, subagents) or must it happen every time (→ hook)?
+## Cheat sheet: ask these in order
 
-The matrix to keep open when you set up a project:
+Stop at the first **yes**. The questions are ordered by how decisive they are,
+so an earlier yes beats a later one.
+
+1. **Must this happen every time, whatever Claude decides?**
+   → a [hook](07-hooks.md). It is the only mechanism that is code rather than
+   guidance; everything else is advisory.
+2. **Does Claude need to reach outside the repo?**
+   → [MCP](06-mcp.md). Nothing else adds new reach.
+3. **Does it apply to (almost) every task in this project?**
+   → `CLAUDE.md`. Short, imperative, always in context.
+4. **Only to certain files or folders — and short enough to state as a few
+   conventions?**
+   → a path-scoped rule in `.claude/rules/`, or a nested `CLAUDE.md` when the
+   guidance belongs to one directory. See [Memory](03-memory-claude-md.md).
+   If it's more than a handful of lines, keep reading.
+5. **Only when a particular job comes up, or is it a whole body of knowledge?**
+   → a [skill](04-skills.md) — a procedure, a repeated prompt, or domain rules
+   Claude can't infer from the code.
+6. **Would doing it flood my context with output I won't need afterwards?**
+   → a [subagent](05-subagents.md), which reports back a result instead of the
+   search it waded through.
+7. **Is the work deterministic?**
+   → a script. Bundled in a skill it costs no context at all; wired to a hook it
+   also becomes guaranteed.
+8. **Should other repos get this too?**
+   → package it as a [plugin](08-plugins.md).
+
+The first two settle most arguments, because they're the only questions with a
+hard answer — enforcement and reach. Everything below them is a cost trade-off,
+so when two options both fit, take the cheaper one.
+
+## The matrix
+
+Keep this open when you set up a project:
 
 | Mechanism | What it's for | Loaded | Deterministic? | Reach for it when |
 |---|---|---|---|---|
