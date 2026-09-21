@@ -1,4 +1,4 @@
-*Unofficial community guide — not affiliated with Anthropic. Reflects Claude Code as of Sep 2026 · last verified Sep 2026 · [official docs](https://code.claude.com/docs).*
+_Unofficial community guide — not affiliated with Anthropic. Reflects Claude Code as of Sep 2026 · last verified Sep 2026 · [official docs](https://code.claude.com/docs)._
 
 # Subagents
 
@@ -34,11 +34,10 @@ the frontmatter configures it, the body becomes its system prompt.
 ---
 name: code-reviewer
 description: Reviews code for quality and security. Use PROACTIVELY after
-  writing or modifying code.
+    writing or modifying code.
 tools: Read, Grep, Glob
 model: sonnet
 ---
-
 You are a code reviewer. For each issue, explain the problem, show the
 current code, and provide an improved version. Focus on correctness, security,
 and clarity — not style nits.
@@ -84,7 +83,8 @@ PROACTIVELY" when you want Claude to reach for it unprompted.
   session, or set `CLAUDE_CODE_SUBAGENT_MODEL` to force a ceiling.
 
 Beyond those: `permissionMode`, `disallowedTools`, `mcpServers` (which servers
-it can reach), `skills` (preloaded), `maxTurns`, and `memory`.
+it can reach), `skills` (preloaded), `maxTurns`, and `memory` (a _scope_ —
+`user`, `project` or `local`, not `true`).
 
 ## Foreground, background, and parallel work
 
@@ -98,11 +98,11 @@ when done). Two patterns:
 
 ## Subagent, skill, or agent team?
 
-| Primitive | How it runs | Reach for it when |
-|---|---|---|
-| **Skill** | In the main conversation; loads on demand | You want a reusable procedure or knowledge applied inline |
-| **Subagent** | In an isolated child context; returns a summary | You need to isolate noisy work or run investigations in parallel |
-| **Agent team** | Several coordinated agents working together | A task genuinely splits into parallel streams that must coordinate |
+| Primitive      | How it runs                                     | Reach for it when                                                  |
+| -------------- | ----------------------------------------------- | ------------------------------------------------------------------ |
+| **Skill**      | In the main conversation; loads on demand       | You want a reusable procedure or knowledge applied inline          |
+| **Subagent**   | In an isolated child context; returns a summary | You need to isolate noisy work or run investigations in parallel   |
+| **Agent team** | Several coordinated agents working together     | A task genuinely splits into parallel streams that must coordinate |
 
 Agent teams are the heavyweight option — reach for them only when a task truly
 decomposes. For most work, one or two well-scoped subagents are plenty.
@@ -116,15 +116,15 @@ decomposes. For most work, one or two well-scoped subagents are plenty.
 - **Summarise aggressively.** Tell them to return conclusions, not transcripts.
 - **Commit shared specialists** to `.claude/agents/`.
 
-| Field | What it does | Example |
-|---|---|---|
-| `name` | Unique id, lowercase and hyphens. Required. | `code-reviewer` |
-| `description` | When Claude should delegate. Required. | free text |
-| `tools` | Tools it may use; omit to inherit all. | `Read, Grep, Glob` |
-| `model` | Model for this subagent. | `sonnet` · `inherit` |
-| `permissionMode` | Permission mode it runs under. | `default` · `plan` |
-| `disallowedTools` | Tools removed from its pool. | `Bash` |
-| `mcpServers` | Which MCP servers it can reach. | `github` |
-| `skills` | Skills preloaded into it. | `test-runner` |
-| `maxTurns` | Cap on its turns. | `20` |
-| `memory` | Persistent memory across invocations. | `true` |
+| Field             | What it does                                    | Example                      |
+| ----------------- | ----------------------------------------------- | ---------------------------- |
+| `name`            | Unique id, lowercase and hyphens. Required.     | `code-reviewer`              |
+| `description`     | When Claude should delegate. Required.          | free text                    |
+| `tools`           | Tools it may use; omit to inherit all.          | `Read, Grep, Glob`           |
+| `model`           | Model for this subagent.                        | `sonnet` · `inherit`         |
+| `permissionMode`  | Permission mode it runs under.                  | `default` · `plan`           |
+| `disallowedTools` | Tools removed from its pool.                    | `Bash`                       |
+| `mcpServers`      | Which MCP servers it can reach.                 | `github`                     |
+| `skills`          | Skills preloaded into it.                       | `test-runner`                |
+| `maxTurns`        | Cap on its turns.                               | `20`                         |
+| `memory`          | Persistent memory **scope** across invocations. | `project` · `user` · `local` |

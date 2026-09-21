@@ -6,6 +6,36 @@ a fast-moving product, entries note the Claude Code behaviour they reflect.
 This project follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] — 2026-09-21
+
+An accuracy pass over the reference tables, verified against the official docs.
+
+### Fixed
+
+- **Subagents** — `memory` documented as taking `true`. It takes a *scope*
+  string: `user`, `project`, or `local`. A config copied from the old table
+  did not do what it looked like it did.
+- **Hooks** — hook `type` listed four values; there are five. Added `mcp_tool`.
+- **Skills** — `argument-hint` and `arguments` were used by the `release-notes`
+  blueprint but had no rows in the frontmatter reference. Added, along with
+  `background` and `shell`.
+- **Skills** — documented the fenced `` ```! `` form for multi-line dynamic
+  context, which `release-notes` uses; only the inline form was described.
+- **Setup** — the permission mode called "Normal" is labelled **Manual** and
+  identified as `default`. Modes are now a table pairing each label with the
+  identifier `defaultMode` actually takes, and `dontAsk` is described as
+  auto-denying rather than stopping.
+
+### Added
+
+- **Hooks** — `InstructionsLoaded` and `SessionEnd` rows; `InstructionsLoaded`
+  reports *why* an instruction file loaded, which the memory topic leaves you
+  wanting.
+- Reference tables now state that they are curated rather than exhaustive, and
+  link to the official reference for the full surface.
+
+_Reflects Claude Code as of September 2026._
+
 ## [1.0.0] — 2026-09-21
 
 First public release.

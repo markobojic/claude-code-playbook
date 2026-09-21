@@ -42,7 +42,9 @@ Both are declared in [`LICENSE`](LICENSE).
 
 ## Contributing
 
-Corrections and additions welcome — especially version-drift fixes. See
-[`CONTRIBUTING.md`](CONTRIBUTING.md).
+Corrections and additions welcome — especially version-drift fixes. If a fact
+here no longer matches how Claude Code behaves, open an issue titled
+`drift: <topic>` with a link to the current official docs, or send a PR. See
+[`CONTRIBUTING.md`](CONTRIBUTING.md) for the ground rules.
 
 Release notes are in [`CHANGELOG.md`](CHANGELOG.md).

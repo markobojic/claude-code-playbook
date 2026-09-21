@@ -41,8 +41,9 @@ the event, a list of matchers, and each matcher's list of hooks.
 }
 ```
 
-Each hook has a `type`: `command` (a shell command or script) is most common;
-`prompt`, `agent`, and `http` cover model-driven checks and remote endpoints.
+Each hook has a `type`. There are five: `command` (a shell command or script) is
+most common, while `prompt` and `agent` cover model-driven checks, and `http`
+and `mcp_tool` hand the decision to a remote endpoint or an MCP server.
 
 ## Matchers and the if filter
 
@@ -120,8 +121,17 @@ it blocks even if the JSON says `allow`.
 | `PreCompact` / `PostCompact` | Around context compaction | Re-inject key context |
 | `SubagentStop` | When a subagent finishes | Track or gate delegated work |
 | `Notification` | When Claude needs input | Send a desktop or Slack ping |
+| `InstructionsLoaded` | A `CLAUDE.md` or rule enters context | Debug which instructions loaded, and why |
+| `SessionEnd` | When a session closes | Clean up, archive a log |
 
-Claude Code exposes roughly thirty events in total; these cover most needs.
+Claude Code exposes more than thirty events in total; these cover most needs.
+`InstructionsLoaded` earns a mention beyond its row: it reports *why* each
+instruction file loaded — `session_start`, `path_glob_match`, `compact` — which
+is the fastest way to settle why a path-scoped rule from
+[Memory](03-memory-claude-md.md) didn't fire.
+
+*Curated, not exhaustive — see the [official hooks
+reference](https://code.claude.com/docs/en/hooks) for the full event list.*
 
 ## A worked example: block recursive deletes
 

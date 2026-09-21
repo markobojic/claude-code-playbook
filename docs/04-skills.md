@@ -179,7 +179,11 @@ Research $ARGUMENTS thoroughly, then summarize findings with file references.
 - **Arguments** via `$ARGUMENTS`, `$0`/`$1`, or named args in frontmatter.
 - **Dynamic context**: `` !`command` `` runs a shell command and injects its
   output before Claude sees the content. Append `|| true` to commands that may
-  exit non-zero.
+  exit non-zero. For several commands, use a fenced `` ```! `` block instead —
+  one command per line, as
+  [`release-notes`](../examples/.claude/skills/release-notes/SKILL.md) does.
+  Substitution runs once, so injected output is never rescanned for further
+  placeholders.
 
 ## How to test a skill
 
@@ -232,3 +236,10 @@ often, make the description more specific or set `disable-model-invocation`.
 | `context` | Run the skill in a forked subagent. | `fork` |
 | `agent` | Subagent type when `context: fork`. | `Explore` |
 | `paths` | Auto-load only for matching files. | `src/api/**` |
+| `argument-hint` | Shown during `/` autocomplete. | `[since-tag]` |
+| `arguments` | Names positional args, so `$since` works in the body. | `since until` |
+| `background` | With `context: fork`, whether to return later (default) or wait. | `false` |
+| `shell` | Shell used for injected commands. | `bash` · `powershell` |
+
+*Curated, not exhaustive — see the [official frontmatter
+reference](https://code.claude.com/docs/en/skills) for every field.*

@@ -49,14 +49,22 @@ Settings cover permissions, environment variables, hooks, and model choice.
 ## Permission modes
 
 Permission mode decides how much Claude Code does before asking you. You switch
-modes per session, or set a default.
+modes per session, or set a default with `defaultMode` in settings — which takes
+the identifier in the second column, not the label you see in the UI.
 
-- **Normal** — asks before edits and commands. The safe default.
-- **Plan** — reads and analyses but makes no changes until you approve a plan.
-- **acceptEdits** — auto-approves file edits but still gates riskier actions.
-- **dontAsk** — runs only tools you pre-approved, and stops rather than prompting.
-- **Auto** — a classifier auto-approves actions it judges safe and escalates the rest.
-- **bypassPermissions** — skips all checks. Powerful and dangerous; sandboxed use only.
+| Mode | Identifier | Behaviour |
+|---|---|---|
+| **Manual** | `default` | Prompts on first use of each tool. The safe default. (`manual` is accepted as an alias.) |
+| **Plan** | `plan` | Reads and explores but makes no changes until you approve a plan. |
+| **Accept edits** | `acceptEdits` | Auto-approves file edits and common filesystem commands; still gates riskier actions. |
+| **Auto** | `auto` | A classifier reviews each action, approving what aligns with your request and escalating the rest. |
+| **Don't ask** | `dontAsk` | Auto-**denies** anything that would otherwise prompt. Pre-approved tools and no-approval actions still run. |
+| **Bypass** | `bypassPermissions` | Skips the prompts entirely. Powerful and dangerous; sandboxed use only. |
+
+`auto` and `bypassPermissions` can each be taken off the table entirely with
+`permissions.disableAutoMode` and `permissions.disableBypassPermissionsMode` —
+usually set in managed settings, but they work from any scope, so you can lock
+yourself out of bypass mode on your own machine.
 
 > **◆ Architect's take** — Start new work in **plan mode** to let Claude map the
 > ground, then move to **acceptEdits** once you trust its plan. Commit a project
