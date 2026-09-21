@@ -11,10 +11,12 @@ short description sits in context at all times; the full body loads when the
 skill is actually used. So you can keep a large library available and pay its
 full cost only when a skill earns its place.
 
-Custom slash commands and skills have converged — a file at
+Custom slash commands have been **merged into skills** — a file at
 `.claude/commands/deploy.md` and a skill at `.claude/skills/deploy/SKILL.md`
-both create `/deploy`. Prefer skills for new work: they add supporting files,
-invocation control, and automatic loading.
+both create `/deploy` and work the same way. Prefer skills for new work: they
+add supporting files, invocation control, and automatic loading. Existing
+`.claude/commands/` files keep working, so an inherited repo full of them needs
+no migration.
 
 ## What a skill does, and when Claude should use it
 
