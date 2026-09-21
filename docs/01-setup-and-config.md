@@ -19,12 +19,23 @@ your-project/
     skills/               # project skills
     commands/             # custom slash commands
     rules/                # path-specific instruction files
+    hooks/                # scripts that settings.json points at
   .mcp.json               # shared MCP servers (commit this)
   CLAUDE.md               # always-on project instructions
 ```
 
 Your personal, cross-project versions of these live under `~/.claude/` (for
 example `~/.claude/settings.json` and `~/.claude/CLAUDE.md`).
+
+**Discovered vs. referenced.** Settings, agents, skills, commands and rules are
+*discovered*: they work only in those exact directories, and a skill moved out
+of `.claude/skills/` simply isn't found. Hook scripts are *referenced* — the
+path in `settings.json` is the only thing that matters, so `.claude/hooks/` is a
+useful convention rather than a requirement. `.mcp.json` is the exception in the
+other direction: it's a cross-tool standard file and belongs at the project root.
+`CLAUDE.md` is the one file with two valid homes — `./CLAUDE.md` or
+`./.claude/CLAUDE.md` load identically; root is conventional because it's
+visible to anyone browsing the repo.
 
 ## Settings files
 
