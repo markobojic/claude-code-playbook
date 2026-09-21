@@ -138,7 +138,8 @@ Most bloated `CLAUDE.md` files are full of things that belong somewhere else:
 | Machine-specific paths, personal per-repo notes | `CLAUDE.local.md` (git-ignored) |
 | Secrets and tokens | Not in any memory file — use your environment or secret store |
 | Directory listings, dependency lists | Nothing — Claude can read the tree itself |
-| "Write clean code", "you are an expert developer" | Nowhere; it costs tokens and changes nothing |
+| "Write clean code", "be thorough" | Nowhere — too vague to verify, so it changes nothing |
+| "You are an expert developer" | Not here — Claude Code's system prompt already covers it. A role line *does* earn its place in a [subagent](05-subagents.md) body, which starts without that system prompt |
 | Commands that no longer work | Fix or delete them — a stale command is worse than none |
 
 ## Auto memory
